@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+    {% load static %}
+
+    {% block content %}
+    <section>
+    <article>
+        <h1>Make a reservation</h1>
+        <!--Begin row-->
+        <div class="row">
+        <!--Begin col-->
+        <div class="column">
+            {% csrf_token %}
+            <form method="POST" id="form">
+                <p>
+                <label for="name">Name:</label>
+                <input type="text" placeholder="Your Name" maxlength="100" required id="name">
+                </p>
+                <p>
+                    <label for="booking_date">Reservation date:</label>
+                    <input type="date" id="booking_date" required>
+                </p>
+                <p>
+                <label for="reservation_slot">Reservation time:</label>
+                <select id="reservation_slot" required>
+                    <option value="0" disabled>Select time</option>
+                </select>
+                </p>
+                <p>
+                <label for="no_of_guests">Number of guests:</label>
+                <input type="number" id="no_of_guests" placeholder="Enter number of guests" min="1" required>
+                </p>
+                <button type="button" id="button">Reserve</button>
+            </form>
+        </div>
+        <!--End col-->
+
+        <!--Begin col-->
+        <div class="column">
+            <h2>Bookings For <span id="today"></span></h2>
+            <div id="bookings"></div>
+        </div>
+        <!--End col-->
+        </div>
+        <!--End row-->
+    </article>
+    </section>
+
+    <script>
+    const date = new Date();
+    document.getElementById('booking_date').value = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+
+    getBookings();
+
+    document.getElementById('booking_date').addEventListener('change', function() {
+        getBookings();
+    });
+
+    function getBookings() {
+        let reserved_slots = [];
+        const date = document.getElementById('booking_date').value;
+        document.getElementById('today').innerText = date;
+
+        fetch("{% url 'bookings' %}" + '?date=' + date)
+        .then(r => r.json())
+        .then(data => {
+            reserved_slots = [];
+            let bookings = "";
+
+            for (let item of data) {
+            reserved_slots.push(item.fields.reservation_slot);
+            bookings += `<p>${item.fields.name} (${item.fields.no_of_guests} guests) - ${formatTime(item.fields.reservation_slot)}</p>`;
+            }
+
+            let slot_options = "<option value=0 disabled>Select time</option>";
+            for (let i = 11; i < 20; i++) {
+            const label = formatTime(i);
+            if (reserved_slots.includes(i)) {
+                slot_options += `<option value=${i} disabled>${label}</option>`;
+            } else {
+                slot_options += `<option value=${i}>${label}</option>`;
+            }
+            }
+
+            document.getElementById('reservation_slot').innerHTML = slot_options;
+            document.getElementById('bookings').innerHTML = bookings || "No bookings";
+        });
+    }
+
+    function formatTime(time) {
+        const ampm = time < 12 ? 'AM' : 'PM';
+        const t = time < 12 ? time : time > 12 ? time - 12 : time;
+        return `${t} ${ampm}`;
+    }
+
+    document.getElementById('button').addEventListener('click', function() {
+        const formdata = {
+        name: document.getElementById('name').value,
+        no_of_guests: document.getElementById('no_of_guests').value,
+        booking_date: document.getElementById('booking_date').value,
+        reservation_slot: document.getElementById('reservation_slot').value,
+        };
+
+        fetch("{% url 'bookings' %}", {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+        },
+        body: JSON.stringify(formdata),
+        })
+        .then((response) => {
+            if (!response.ok) {
+            throw new Error('Failed to create booking');
+            }
+            return response.text();
+        })
+        .then(() => {
+            getBookings();
+            alert('Booking successfully created!');
+        })
+        .catch((error) => {
+            alert('Error creating booking. Please try again.');
+            console.error(error);
+        });
+    });
+    </script>
+{% endblock %}

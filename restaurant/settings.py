@@ -20,13 +20,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-@qa&j@4-%(9ura&7q@t7t5fn5mp(m_fmgndm8cwdv!_g4lj&%$'
+SECRET_KEY = 'django-insecure-bwc2h4rc2%+w!snhxjaa9zv7lmvkqhmvp#jci1%)ed+0-g1=3*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -44,6 +43,7 @@ INSTALLED_APPS = [
     "django_filters",
     'djoser',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -83,16 +83,19 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'LittleLemon',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
         'USER' : 'admindjango',
         'PASSWORD' : 'admin@123!',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
         }
     }
 }
 
+
+# The settings for media files have been updated for the Graded assessment
+MEDIA_URL = '/media/'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -128,12 +131,27 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = "restaurant/static/"
+STATIC_URL = 'static/'
+
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'rest_framework.authentication.TokenAuthentication',
+#         'rest_framework.authentication.SessionAuthentication',
+#     ),
+#     'DEFAULT_PERMISSION_CLASSES': [
+#         'rest_framework.permissions.IsAuthenticated',
+#     ],
+# }
+
+STATICFILES_DIRS = [
+    "restaurant/static",
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 
 REST_FRAMEWORK = {
     "DEFAULT_RENDERER_CLASSES": [
@@ -171,14 +189,7 @@ REST_FRAMEWORK = {
     },
 }
 
+# djoser settings
 DJOSER = {
-    "USER_ID_FIELD":"username"
+    'USER_ID_FIELD' : 'username'
 }
-
-# The settings for media files have been updated for the Graded assessment
-MEDIA_URL = '/media/'
-
-
-STATICFILES_DIRS = [
-    "restaurant/static",
-]

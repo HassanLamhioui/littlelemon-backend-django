@@ -56,35 +56,46 @@
     });
 
     function getBookings() {
-        let reserved_slots = [];
-        const date = document.getElementById('booking_date').value;
-        document.getElementById('today').innerText = date;
+    const date = document.getElementById('booking_date').value;
+    document.getElementById('today').innerText = date;
 
-        fetch("{% url 'bookings' %}" + '?date=' + date)
-        .then(r => r.json())
+    // Effectuer une requête pour obtenir les réservations
+    fetch("{% url 'bookings' %}?date=" + date)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch bookings');
+            }
+            return response.json();
+        })
         .then(data => {
-            reserved_slots = [];
-            let bookings = "";
+            let reservedSlots = [];
+            let bookingsHTML = "";
 
+            // Collecter les créneaux horaires réservés et afficher les réservations
             for (let item of data) {
-            reserved_slots.push(item.fields.reservation_slot);
-            bookings += `<p>${item.fields.name} (${item.fields.no_of_guests} guests) - ${formatTime(item.fields.reservation_slot)}</p>`;
+                reservedSlots.push(item.fields.reservation_slot);
+                bookingsHTML += `<p>${item.fields.first_name} (${item.fields.guest_number} guests) - ${formatTime(item.fields.reservation_slot)}</p>`;
             }
 
-            let slot_options = "<option value=0 disabled>Select time</option>";
+            // Générer les options pour les créneaux horaires (11h à 19h inclus)
+            let slotOptions = "<option value='0' disabled>Select time</option>";
             for (let i = 11; i < 20; i++) {
-            const label = formatTime(i);
-            if (reserved_slots.includes(i)) {
-                slot_options += `<option value=${i} disabled>${label}</option>`;
-            } else {
-                slot_options += `<option value=${i}>${label}</option>`;
-            }
+                const label = formatTime(i);
+                if (reservedSlots.includes(i)) {
+                    slotOptions += `<option value='${i}' disabled>${label} (Reserved)</option>`;
+                } else {
+                    slotOptions += `<option value='${i}'>${label}</option>`;
+                }
             }
 
-            document.getElementById('reservation_slot').innerHTML = slot_options;
-            document.getElementById('bookings').innerHTML = bookings || "No bookings";
+            // Mettre à jour les éléments HTML
+            document.getElementById('reservation_slot').innerHTML = slotOptions;
+            document.getElementById('bookings').innerHTML = bookingsHTML || "No bookings";
+        })
+        .catch(error => {
+            console.error('Error fetching bookings:', error);
         });
-    }
+}
 
     function formatTime(time) {
         const ampm = time < 12 ? 'AM' : 'PM';
@@ -92,36 +103,36 @@
         return `${t} ${ampm}`;
     }
 
-    document.getElementById('button').addEventListener('click', function() {
-        const formdata = {
-        name: document.getElementById('name').value,
-        no_of_guests: document.getElementById('no_of_guests').value,
-        booking_date: document.getElementById('booking_date').value,
-        reservation_slot: document.getElementById('reservation_slot').value,
-        };
+    document.getElementById('button').addEventListener('click', function () {
+    const formdata = {
+        first_name: document.getElementById('name').value,
+        reservation_date: document.getElementById('booking_date').value,
+        reservation_slot: parseInt(document.getElementById('reservation_slot').value),
+        guest_number: document.getElementById('no_of_guests').value,
+    };
 
-        fetch("{% url 'bookings' %}", {
-        method: 'post',
+    fetch("{% url 'bookings' %}", {
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
         },
         body: JSON.stringify(formdata),
-        })
+    })
         .then((response) => {
             if (!response.ok) {
-            throw new Error('Failed to create booking');
+                throw new Error('Failed to create booking');
             }
-            return response.text();
+            return response.json();
         })
-        .then(() => {
+        .then((data) => {
             getBookings();
             alert('Booking successfully created!');
         })
         .catch((error) => {
             alert('Error creating booking. Please try again.');
-            console.error(error);
+            console.error('Error:', error);
         });
-    });
+});
     </script>
 {% endblock %}

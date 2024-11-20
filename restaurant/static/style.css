@@ -5,45 +5,36 @@ body {
     margin-left: 5%;
     margin-right: 5%;
 }
-
-
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Markazi Text', serif;
     letter-spacing: 2px;;
 }
-
 h1 {
     font-size: 4rem;
     margin-top: 1.5rem;
     margin-bottom: 0;
 }
-
 h2 {
     font-size: 2.5rem;
     color: #333333;
     margin:1rem 0;
 }
-
 p, ul{
     font-size: 1.25rem;;
 }
-
 a {
     color: #EE9972;
     text-decoration: none;
 }
-
 a:hover {
     text-decoration: underline;
 }
-
 header img {
     display: block;
     height: auto;
     width: 40%;
     margin:0 auto;
 }
-
 nav {
     background-color: #495E57;
     margin-top: 1rem;
@@ -51,7 +42,6 @@ nav {
     margin-bottom: 0px;
     border-radius: .25rem;
 }
-
 nav ul {
     list-style: none;
     font-size: 1.5rem;
@@ -59,32 +49,24 @@ nav ul {
     padding-inline-start: 0rem;
     margin-bottom: 0px;
 }
-
 nav ul li {
     display: inline-block;
     margin: 0.5rem;
 }
-
 nav ul a {
     color: #EDEFEE;
     text-decoration: none;
 }
-
-/* nav ul a:active {
-    text-decoration: underline;
-} */
 nav ul li a.active {
     text-decoration: underline;
     text-decoration-thickness: 0.2rem;
     font-weight:500;
     font-size:larger;
-  }
-
+}
 nav ul a:hover {
     text-decoration: underline;
     text-decoration-thickness: 0.1rem;
 }
-
 section {
     display: flex;
     gap: 2rem 1rem;
@@ -92,36 +74,29 @@ section {
     margin-bottom: 1rem;
     flex-direction: row;
 }
-
 article {
     flex:1;
 }
-
 article img {
     max-width: 100%;
     border-radius: .25rem;
 
 }
-
 article ul {
     list-style: none;
 }
-
 main article {
     border: 1px solid #EDEFEE;
     padding-left: 1rem;
     padding-right: 1rem;
 }
-
 figure {
     margin: 0;
 }
-
 label {
     font-weight: bold;
     display: block;
-  }
-
+}
 input, select{
     width: 80%;
     display: block;
@@ -129,7 +104,6 @@ input, select{
     line-height: 1.5rem;
     box-sizing: border-box;
 }
-
 #button {
     padding: .5rem 1rem;
     border: 1px solid #495E57;
@@ -140,8 +114,7 @@ input, select{
     display: block;
     color: #fff;
     line-height: 25px;
-  }
-
+}
 #hero {
     background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.8)), url('./img/restaurant_inside.jpg');
     background-size: cover;
@@ -152,48 +125,41 @@ input, select{
     border-radius: .25rem;
 
 }
-
 #hero p {
     font-size: 2rem;
     margin:0;
     text-shadow: 2px 2px 4px #333333;
 }
-
-.cta { 
-    display: inline-block; 
+.cta {
+    display: inline-block;
     color: rgba(255, 255, 255, 0.9);
-    width: 200px; 
-    font-weight: bold; 
+    width: 200px;
+    font-weight: bold;
     font-size: 1.5rem;
-    padding: 8px; 
-    border: 3px solid #fff; 
-    text-align: center; 
-    outline: none; 
-    text-decoration: none; 
+    padding: 8px;
+    border: 3px solid #fff;
+    text-align: center;
+    outline: none;
+    text-decoration: none;
     margin: 1rem;
-} 
-
+}
 .cta:hover {
     color:#fff;
     background:#495E57;
     border: 3px solid #495E57; 
-  }
-
-  .heading-shadow {
+}
+.heading-shadow {
     text-shadow: 1px 1px 4px #333333;
-  }
-
+}
 footer {
     background-color: #EDEFEE;
     padding: 1rem;
     display: flex;
     gap: 2rem 1rem;
 }
-
 footer img {
     max-width: 50%;
 }
-
 footer p {
     border-top: #333333;
     border-style: solid;
@@ -204,27 +170,22 @@ footer p {
     text-align: right;
     padding-top: 1rem;;
 }
-
 .row {
     display: flex;
     flex-direction: row;
     width: 100%;
     padding-bottom: 1rem;
-  }
-
-  .column {
+}
+.column {
     flex-basis: 50%;
     margin-bottom: 1rem;
     padding-bottom: 1rem;
-  }
-
-  .column figure {
+}
+.column figure {
     padding: 0px 12px;
 
-  }
-
-
-  .videowrap {
+}
+.videowrap {
 	position: relative;
 	padding-bottom: 56.25%; /* 16:9 */
 	padding-top: 1rem;
@@ -238,22 +199,112 @@ footer p {
 	width: 100%;
 	height: 100%;
 }
-
 .menu-price{
     display: block;
     font-size: 1rem;
 }
+/* css for page menu*/
+/* Styles spécifiques pour menu.html */
+.menu-page .row {
+    grid-row-gap: 25px;
+    display: grid;
+    grid-template-columns: repeat(3, 260px);
+    justify-content: space-evenly;
+}
+.menu-page .column {
+    background-color: #edefee;
+    border-radius: 16px 16px 0 0;
+    cursor: pointer;
+    min-width: 260px;
+    overflow: hidden;
+    transition: all .2s ease-in;
+}
+.menu-page .column:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+.menu-page .column img {
+    height: 40%;
+    object-fit: cover;
+    width: 100%;
+}
+.menu-page .column .content {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    justify-content: space-between;
+    padding: 12px;
+}
+.menu-page .column .content .content-top {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+.menu-page .column .content .content-top p {
+    color: #ee9972;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 19px;
+}
+.menu-page .column .content p {
+    text-align: start;
+}
+.menu-page .column .content .content-botom {
+    display: flex;
+}
+.menu-page .column h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    color: #495E57;
+}
+.menu-page .column p {
+    font-size: 1rem;
+    text-align: center;
+    color: #333333;
+}
+
+/* Styles spécifiques pour menu_items.html */
+.menu-item-page .row {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+.menu-item-page .column {
+    flex: 1 1 50%;
+    padding: 1rem;
+    background-color: #F7F7F7;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.menu-item-page .column img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+}
+.menu-item-page .column h2 {
+    font-size: 2rem;
+    color: #130F40;
+    margin-bottom: 1rem;
+}
+.menu-item-page .column p {
+    font-size: 1.25rem;
+    color: #333333;
+    line-height: 1.5;
+}
 
 @media (max-width: 800px) {
     section {
-        flex-direction: column;   
+        flex-direction: column;
     }
 
     .row {
         flex-direction: column;
         width: 100%;
       }
-   
+
     input{
         width: 100%;
     }
@@ -261,4 +312,12 @@ footer p {
     #button{
         width: 100%;
     }
-  }
+    .menu-page .row,
+    .menu-item-page .row {
+        flex-direction: column;
+    }
+    .menu-page .column,
+    .menu-item-page .column {
+        flex: 1 1 100%;
+    }
+}

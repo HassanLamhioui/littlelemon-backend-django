@@ -21,6 +21,7 @@ from restaurant import views
 
 router = DefaultRouter()
 router.register(r'tables', views.BookingViewSet)
+router.register("users", views.UserViewSet, basename="user")
 
 urlpatterns = [
     path('admin/', admin.site.urls),

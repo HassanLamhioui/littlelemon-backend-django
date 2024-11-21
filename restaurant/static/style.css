@@ -26,9 +26,9 @@ a {
     color: #EE9972;
     text-decoration: none;
 }
-a:hover {
+/* a:hover {
     text-decoration: underline;
-}
+} */
 header img {
     display: block;
     height: auto;
@@ -205,27 +205,27 @@ footer p {
 }
 /* css for page menu*/
 /* Styles spécifiques pour menu.html */
+
 .menu-page .row {
-    grid-row-gap: 20px;
     display: grid;
-    grid-template-columns: repeat(3, 300px);
+    grid-template-columns: repeat(3, 320px);
     justify-content: space-evenly;
-    margin-top:20px;
-    height: 80%;
+    margin-top:2rem;
+    height: 70%;
 }
 .menu-page .column {
     background-color: #edefee;
     border-radius: 16px 16px 0 0;
     cursor: pointer;
-    min-width: 300px;
+    min-width: 320px;
     overflow: hidden;
     transition: all .2s ease-in;
 }
-.menu-page .column:hover {
+/* .menu-page .column:hover {
     transform: scale(1.05);
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
     transition: all .2s ease-in-out;
-}
+} */
 .menu-page .column img {
     height: 40%;
     object-fit: cover;
@@ -234,9 +234,9 @@ footer p {
 .menu-page .column .content {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    gap: 1.5rem;
     padding: 20px;
-    height: 60%;
+    height: auto;
 }
 .menu-page .column .content .content-top {
     align-items: center;
@@ -249,7 +249,7 @@ footer p {
     font-weight: 700;
     line-height: 20px;
 }
-.menu-page .column .content p {
+.menu-page .column .content .content-middle p {
     text-align: start;
     display: -webkit-box;
     display: box;
@@ -260,17 +260,43 @@ footer p {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.menu-page .column .content .content-middle .read-more-link {
+    color: #5a90f3;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 20px;
+    text-decoration: none;
+    transition: transform 0.3s ease, font-size 0.3s ease;
+}
+.menu-page .column .content .content-middle .read-more-link:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    transform: scale(1.2);
+    font-size: 18px;
+}
 
 .menu-page .column .content .content-botom {
     display: flex;
     justify-content: start;
     align-items: center;
-    gap: 10px;
+}
+.menu-page .column .content .content-botom:hover{
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 10px;
+    gap: 20px;
+    text-decoration: none;
 }
 .menu-page .column .content .content-botom h5{
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 700;
     line-height: 20px;
+    color: #333333;
+}
+
+.menu-page .column .content .content-botom img{
+    height: 30px;
+    width: 30px;
 }
 .menu-page .column h2 {
     font-size: 1.5rem;
@@ -312,7 +338,10 @@ footer p {
     color: #333333;
     line-height: 1.5;
 }
-
+/* css book page */
+/* .book-page{
+    background: url('./img/BackgroundBookingPage1.jpg') no-repeat center center ;
+} */
 /* css for page custom_404  */
 .error-page {
     padding: 50px 0;

@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 <section class="menu-page">
-    <article>
+    <article >
         <h1>Our Menu</h1>
         <span>
             <a href="{% url 'home' %}">Home</a> /
@@ -17,12 +17,16 @@
                         <h2>{{ menu_item.name }}</h2>
                         <p>Price: ${{ menu_item.price }}</p>
                     </div>
-                    <p>{{ menu_item.menu_item_description }}</p>
-                    <!-- Make the entire content-bottom section clickable -->
+                    <div class="content-middle">
+                        <p>{{ menu_item.menu_item_description }}</p>
+                        <a href="{% url 'menu_item' menu_item.id %}" class="read-more-link">
+                            Read more
+                        </a>
+                    </div>
                     <a href="{% url 'custom_404' %}">
-                        <div class="content-bottom">
-                            <h5>Order delivery</h5>
-                            <img src="{% static 'img/delivery-icon.svg' %}" alt="delivery" style="height: 25px; width: 25px">
+                        <div class="content-botom">
+                            <h5> Delivery</h5>
+                            <img src="{% static 'img/delivery-icon.svg' %}" alt="delivery">
                         </div>
                     </a>
                 </div>

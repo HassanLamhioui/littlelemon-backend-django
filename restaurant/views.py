@@ -42,10 +42,9 @@ def book(request):
     return render(request, 'book.html', context)
 
 def reservations(request):
-    date = request.GET.get('date', datetime.today().date())
     bookings = Booking.objects.all()
     booking_json = serializers.serialize('json', bookings)
-    return render(request, 'bookings.html', {"bookings": booking_json})
+    return render(request, 'reservations.html', {"bookings": booking_json})
 
 def custom_404(request):
     return render(request, 'custom_404.html')
@@ -54,6 +53,10 @@ class MenuItemsView(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
+class BookingsView(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
+    queryset = Booking.objects.all()
+    serializer_class = BookingSerializer
 
 class MenuViewSet(viewsets.ModelViewSet):
     queryset = Menu.objects.all()

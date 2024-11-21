@@ -18,6 +18,7 @@ urlpatterns = [
     path('menu/<int:pk>/', views.display_menu_item, name="menu_item"),
     path('menu_item/<int:pk>/', views.display_menu_item, name="menu_item"),
     path('api/menu-items/', views.MenuItemsView.as_view(), name='menu-items'),
+    path('api/bookings/', views.BookingsView.as_view(), name='Booking_list'),
     path('bookings/', views.bookings, name='bookings'),
     path('custom_404/', views.custom_404, name='custom_404'),
 ]

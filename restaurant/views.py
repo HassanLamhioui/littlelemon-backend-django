@@ -2,10 +2,12 @@ from django.http import HttpResponse,JsonResponse
 from django.shortcuts import render
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.response import Response
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.utils.dateparse import parse_date
-from rest_framework import viewsets
+from rest_framework import viewsets,generics
 from rest_framework.permissions import IsAuthenticated
 from restaurant.forms import BookingForm
 from .models import Booking, Menu
@@ -44,6 +46,15 @@ def reservations(request):
     bookings = Booking.objects.all()
     booking_json = serializers.serialize('json', bookings)
     return render(request, 'bookings.html', {"bookings": booking_json})
+
+def custom_404(request):
+    return render(request, 'custom_404.html')
+
+class MenuItemsView(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
+    queryset = Menu.objects.all()
+    serializer_class = MenuSerializer
+
 class MenuViewSet(viewsets.ModelViewSet):
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
@@ -70,8 +81,6 @@ class UserViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAdmin]
     queryset = User.objects.all()
     serializer_class = UserSerializer
-
-
 
 @csrf_exempt
 def bookings(request):
@@ -128,3 +137,8 @@ def bookings(request):
 
     # If method not allowed
     return JsonResponse({'error': 'Method not allowed'}, status=405)
+@api_view()
+@permission_classes([IsAuthenticated])
+# @authentication_classes([TokenAuthentication])
+def msg(request):
+    return Response({"message":"This view is protected"})

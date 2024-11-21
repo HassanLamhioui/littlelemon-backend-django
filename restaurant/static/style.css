@@ -206,22 +206,25 @@ footer p {
 /* css for page menu*/
 /* Styles spécifiques pour menu.html */
 .menu-page .row {
-    grid-row-gap: 25px;
+    grid-row-gap: 20px;
     display: grid;
-    grid-template-columns: repeat(3, 260px);
+    grid-template-columns: repeat(3, 300px);
     justify-content: space-evenly;
+    margin-top:20px;
+    height: 80%;
 }
 .menu-page .column {
     background-color: #edefee;
     border-radius: 16px 16px 0 0;
     cursor: pointer;
-    min-width: 260px;
+    min-width: 300px;
     overflow: hidden;
     transition: all .2s ease-in;
 }
 .menu-page .column:hover {
     transform: scale(1.05);
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+    transition: all .2s ease-in-out;
 }
 .menu-page .column img {
     height: 40%;
@@ -231,9 +234,9 @@ footer p {
 .menu-page .column .content {
     display: flex;
     flex-direction: column;
-    gap: 25px;
     justify-content: space-between;
-    padding: 12px;
+    padding: 20px;
+    height: 60%;
 }
 .menu-page .column .content .content-top {
     align-items: center;
@@ -244,19 +247,34 @@ footer p {
     color: #ee9972;
     font-size: 18px;
     font-weight: 700;
-    line-height: 19px;
+    line-height: 20px;
 }
 .menu-page .column .content p {
     text-align: start;
+    display: -webkit-box;
+    display: box;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+    -webkit-box-orient: vertical;
+    box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
+
 .menu-page .column .content .content-botom {
     display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+}
+.menu-page .column .content .content-botom h5{
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 20px;
 }
 .menu-page .column h2 {
     font-size: 1.5rem;
-    margin-bottom: 0.5rem;
     text-align: center;
-    color: #495E57;
 }
 .menu-page .column p {
     font-size: 1rem;
@@ -279,10 +297,10 @@ footer p {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 .menu-item-page .column img {
-    max-width: 100%;
-    height: auto;
     border-radius: 8px;
     object-fit: cover;
+    width: 100%;
+    height: 100%;
 }
 .menu-item-page .column h2 {
     font-size: 2rem;
@@ -293,6 +311,51 @@ footer p {
     font-size: 1.25rem;
     color: #333333;
     line-height: 1.5;
+}
+
+/* css for page custom_404  */
+.error-page {
+    padding: 50px 0;
+    text-align: center;
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.error-content {
+    max-width: 600px;
+    margin: 0 auto;
+}
+.error-title {
+    font-size: 3rem;
+    color: #e74c3c;
+}
+.error-message {
+    font-size: 1.2rem;
+    color: #333;
+    margin-top: 20px;
+}
+.error-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+}
+.btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    text-decoration: none;
+    border-radius: 5px;
+    margin: 5px;
+}
+.btn-primary {
+    background-color: #495E57;
+    color: #f4ce14;
+}
+.btn-primary:hover {
+    background-color: #f4ce14;
+    color: #495E57;
+    text-decoration: none;
 }
 
 @media (max-width: 800px) {
